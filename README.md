@@ -12,7 +12,7 @@ Esta diferencia en los orígenes provocará que el navegador bloquee las solicit
 
 ### Peticiones Simples (Simple Requests)
 Las peticiones simples son aquellas que cumplen con ciertos criterios, como usar uno de los métodos HTTP: GET, POST, o HEAD.
-**Problema:** Si el servidor backend no incluye el encabezado Access-Control-Allow-Origin en la respuesta, el navegador bloqueará la respuesta, generando un error de CORS. El código del servidor debe incluir:
+- **Problema:** Si el servidor backend no incluye el encabezado Access-Control-Allow-Origin en la respuesta, el navegador bloqueará la respuesta, generando un error de CORS. El código del servidor debe incluir:
 
 ```javascript
 res.header('Access-Control-Allow-Origin', origin);
@@ -20,8 +20,7 @@ res.header('Access-Control-Allow-Origin', origin);
 
 ### Peticiones Complejas (Preflighted Requests)
 Las peticiones complejas son aquellas que usan métodos como PUT, DELETE, PATCH
-
-**Problema:** El servidor debe manejar la solicitud preflight OPTIONS y responder adecuadamente con los encabezados necesarios:
+- **Problema:** El servidor debe manejar la solicitud preflight OPTIONS y responder adecuadamente con los encabezados necesarios:
 
 ```javascript
 app.options('/movies/:id', (req, res) => {
