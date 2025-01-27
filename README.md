@@ -1,5 +1,37 @@
 # Gestión de CORS en Servidores Express: Tres Enfoques Diferentes
 
+## ¿Qué es el problema de CORS?
+Cross-Origin Resource Sharing (CORS) es un mecanismo de seguridad implementado en los navegadores para controlar cómo se permiten las solicitudes entre diferentes orígenes. En este caso, tienes un servidor backend que se ejecuta en `http://localhost:1234/movies` y una web frontend que se ejecuta en `http://127.0.0.1:5500/web/index.html`. Aunque ambos están en localhost, tienen diferentes puertos, lo que los convierte en orígenes diferentes, provocando problemas de CORS.
+
+### Diferentes Orígenes:
+
+- **Servidor Backend:** `http://localhost:1234/movies`
+- **Web Frontend:** `http://127.0.0.1:5500/web/index.html`
+
+Esta diferencia en los orígenes provocará que el navegador bloquee las solicitudes entre ellos a menos que el servidor permita explícitamente estas solicitudes mediante configuraciones de CORS.
+
+### Peticiones Simples (Simple Requests)
+Las peticiones simples son aquellas que cumplen con ciertos criterios, como usar uno de los métodos HTTP: GET, POST, o HEAD.
+**Problema:** Si el servidor backend no incluye el encabezado Access-Control-Allow-Origin en la respuesta, el navegador bloqueará la respuesta, generando un error de CORS. El código del servidor debe incluir:
+
+```javascript
+res.header('Access-Control-Allow-Origin', origin);
+```
+
+### Peticiones Complejas (Preflighted Requests)
+Las peticiones complejas son aquellas que usan métodos como PUT, DELETE, PATCH
+
+**Problema:** El servidor debe manejar la solicitud preflight OPTIONS y responder adecuadamente con los encabezados necesarios:
+
+```javascript
+app.options('/movies/:id', (req, res) => {
+  res.header('Access-Control-Allow-Origin', req.header('Origin'));
+  res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.sendStatus(200);
+});
+```
+
 ## Proyecto 1: Servidor Básico con Express y CORS Manual
 
 ### Descripción
