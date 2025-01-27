@@ -37,7 +37,7 @@ Este proyecto expande el servidor básico añadiendo el middleware CORS proporci
 - Implementación de funciones de callback para validar orígenes.
 - Mejora de la seguridad y flexibilidad en la configuración de CORS.
 
-### Proyecto 3: Servidor con Middleware CORS y Lista de Orígenes
+# Proyecto 3: Servidor con Middleware CORS y Lista de Orígenes
 
 ## Descripción
 Este proyecto utiliza el middleware `cors` con una configuración simplificada, aceptando una lista de orígenes permitidos. Facilita la gestión de CORS al utilizar una lista estática de orígenes permitidos.
